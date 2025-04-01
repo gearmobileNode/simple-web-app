@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "serve": "node src/index.js"
+    "serve": "nodemon src/index.js"
   },
   "keywords": [
     "nodejs"
@@ -13,6 +13,24 @@
   "author": "Moe Green",
   "license": "ISC",
   "devDependencies": {
+    "nodemon": "^2.0.22",
     "prettier": "^3.5.3"
+  },
+  "nodemonConfig": {
+    "watch": [
+      "./src/**"
+    ],
+    "ignore": [
+      "test/*",
+      "docs/*",
+      "dist/*",
+      "src/**/*.spec.js"
+    ],
+    "ext": "js",
+    "events": {
+      "restart": "clear",
+      "crash": "clear"
+    },
+    "delay": 2500
   }
 }
