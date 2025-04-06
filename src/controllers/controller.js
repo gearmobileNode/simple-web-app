@@ -1,29 +1,45 @@
-function mainPage(res) {
+import { loadList, loadItemList } from '../model/model.js';
+
+async function mainPage(res) {
   let s =
     '<!doctype html>' +
     '<html>' +
     ' <head>' +
     '<meta charset="UTF-8">' +
-    '<title>Список запланированных дел</title>' +
-    ' </head>' +
-    ' <body>' +
-    '<h1>Запланированные дела</h1>' +
-    ' </body>' +
-    '</html>';
+    '<title>Список запланированные дела</title>';
+
+  const todos = loadList();
+  console.log(todos);
+  for (const todo of todos) {
+    s +=
+      `<h2><a href="/${todo._id}/">${todo.title}</a></h2>` +
+      `<p>${todo.desc}</p>` +
+      '<p>&nbsp;</p>';
+  }
+
+  s += ' </body>' + '</html>';
 
   res.end(s);
 }
 
-function detailPage(res, id) {
+async function detailPage(res, id) {
+  const todo = loadItemList(id);
+
+  if (!todo) {
+    errorPage(res);
+    return;
+  }
+
   res.end(
     '<!doctype html>' +
       '<html>' +
       ' <head>' +
       ' <meta charset="UTF-8">' +
-      ' <title>Дело :: Список запланированных дел</title>' +
+      ` <title>${todo.title} :: Список запланированных дел</title>` +
       ' </head>' +
       ' <body>' +
-      ' <h1>Дело</h1>' +
+      ` <h1>${todo.title}</h1>` +
+      `<p>${todo.desc}</p>` +
       ' </body>' +
       '</html>',
   );

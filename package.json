@@ -21,16 +21,13 @@
       "./src/**"
     ],
     "ignore": [
+      "data/**/*",
       "test/*",
       "docs/*",
       "dist/*",
       "src/**/*.spec.js"
     ],
     "ext": "js",
-    "events": {
-      "restart": "clear",
-      "crash": "clear"
-    },
     "delay": 2500
   }
 }
